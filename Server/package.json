@@ -1,0 +1,24 @@
+{
+  "name": "notebackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.8.12",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.1",
+    "nodemon": "^1.18.11",
+    "random-token": "0.0.8",
+    "uuid": "^3.3.2",
+    "validator": "^10.11.0"
+  }
+}
