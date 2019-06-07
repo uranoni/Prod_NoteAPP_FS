@@ -5,7 +5,9 @@
         <span>Note APP</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-
+      <v-btn @click="goabout">
+        <span class="mr-2">about</span>
+      </v-btn>
       <v-btn @click="gonote">
         <span class="mr-2">note</span>
       </v-btn>
@@ -69,6 +71,9 @@ export default {
     },
     gonote() {
       this.$router.push("/note");
+    },
+    goabout() {
+      this.$router.push("/about");
     }
   }
 };

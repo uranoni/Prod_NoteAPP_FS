@@ -44,6 +44,17 @@ export default {
       return this.tmp;
     }
   },
+  mounted() {
+    axios
+      .get("http://localhost:8888/getTodo")
+      .then(res => {
+        console.log(res);
+        this.input = res.data.content;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   methods: {
     //即時更新把左邊的markdown語法轉換到右邊
     update: _.debounce(function(e) {
@@ -56,12 +67,12 @@ export default {
       // post 後面接url  第二個參數接資料
 
       axios
-        .post("http://localhost:8787/rewrite", {
+        .post("http://localhost:8888/rewrite", {
           user: "user",
-          context: this.tmp
+          context: this.input
         })
         .then(res => {
-          console.log(res);
+          console.log(res.data.content);
         })
         .catch(err => {
           console.log(err);

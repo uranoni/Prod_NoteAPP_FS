@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const {
 	User
 } = require('./models/user')
+const {
+	Todo
+} = require('./models/todo')
 const app = express()
 
 app.use(cors())
@@ -51,6 +54,27 @@ const initUser = () => {
 	})
 }
 
+const initTodo = () => {
+	Todo.find({
+		'todoname': 'mytodo'
+	}).then((result) => {
+		if (result.length == 0) {
+			var todos = new Todo({
+				"todoname": "mytodo",
+				"content": "Hello world!!"
+			})
+			todos.save().then(() => {
+				console.log("init mongodb success");
+			}).catch((err) => {
+				console.log(err)
+			})
+		} else {
+			console.log("already success")
+		}
+
+	})
+}
+initTodo();
 initUser();
 // 登入
 app.post('/login', (req, res) => {
@@ -119,6 +143,40 @@ app.delete('/logout', async (req, res) => {
 	}
 
 
+})
+
+
+app.post('/rewrite', async (req, res) => {
+
+	const result = await Todo.findOneAndUpdate({
+		todoname: "mytodo"
+	}, {
+		$set: {
+			content: req.body.context
+		}
+	});
+	if (!result) {
+		// If the document doesn't exist
+
+
+		res.status(401).send('can not create')
+
+
+	} else {
+		res.send(result)
+	}
+
+})
+
+app.get('/getTodo', async (req, res) => {
+	const result = await Todo.findOne({
+		todoname: "mytodo"
+	})
+	if (!result) {
+		res.status(404).send("Not found")
+	} else {
+		res.send(result)
+	}
 })
 
 app.listen(8888, () => {
